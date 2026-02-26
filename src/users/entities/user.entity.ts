@@ -1,8 +1,11 @@
-import { 
-    Column, 
-    Entity, 
-    PrimaryGeneratedColumn, 
+import {
+    Column,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Role } from '../../roles/entities/role.entity';
 
 @Entity()
 export class User {
@@ -30,5 +33,11 @@ export class User {
     @Column({ type: 'varchar', length: 255 })
     miTest3;
 
-    
+    @ManyToMany(() => Role, (role) => role.users, { eager: false })
+    @JoinTable({
+        name: 'user_roles',
+        joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+    })
+    roles: Role[];
 }
