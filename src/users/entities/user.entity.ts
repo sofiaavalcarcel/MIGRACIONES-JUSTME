@@ -26,4 +26,9 @@ export class User {
 
     @Column({ type: 'varchar', length: 255 })
     miTest2;
+
+    @Column({ type: 'varchar', length: 255 })
+    miTest3;
+
+    
 }
