@@ -6,6 +6,9 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
+import { Type } from 'class-transformer';
+import { number } from 'joi';
+import { IsInt } from 'class-validator';
 
 @Entity()
 export class User {
@@ -33,7 +36,9 @@ export class User {
     @Column({ type: 'varchar', length: 255 })
     miTest3;
 
-    @ManyToMany(() => Role, (role) => role.users, { eager: false })
+    @ManyToMany(() => Role, (role) => role.users)
+    @Type(() => number)
+    @IsInt({each: true})
     @JoinTable({
         name: 'user_roles',
         joinColumn: { name: 'user_id', referencedColumnName: 'id' },
