@@ -16,7 +16,7 @@ export class RolesService {
   }
 
   async findOne(roleId: number) {
-    const role = await this.roleRepo.findOne({ where: { id: roleId } });
+    const role = await this.roleRepo.findOne({ where: { idroles: roleId } });
     if (!role) {
       throw new NotFoundException(`Role #${roleId} not found`);
     }
@@ -29,7 +29,7 @@ export class RolesService {
   }
 
   async updateRole(id: number, payloadUpdated: UpdateRoleDto) {
-    const role = await this.roleRepo.findOne({ where: { id } });
+    const role = await this.roleRepo.findOne({ where: { idroles: id } });
     if (!role) {
       throw new NotFoundException(`Role #${id} not found`);
     }
@@ -43,7 +43,7 @@ export class RolesService {
 
   async FindByIds (roleIds: number[]){
     const roles = await this.roleRepo.find({
-      where: { id: In(roleIds)}
+      where: { idroles: In(roleIds)}
     });
     return roles;
   }

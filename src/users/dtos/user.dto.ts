@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNotEmpty, IsArray } from "class-validator";
+import { IsString, IsNotEmpty, IsArray, IsEmail, MinLength } from "class-validator";
 import { PartialType, ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 
@@ -38,6 +38,17 @@ export class CreateUserDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly miTest3: string;
+
+    @IsEmail()
+    @IsNotEmpty()
+    @ApiProperty({ example: 'usuario@email.com', description: 'Correo electrónico único del usuario' })
+    readonly email: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(6)
+    @ApiProperty({ example: 'password123', description: 'Contraseña (mínimo 6 caracteres)' })
+    readonly password: string;
 
     @IsArray()
     @IsNotEmpty()

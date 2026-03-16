@@ -36,13 +36,19 @@ export class User {
     @Column({ type: 'varchar', length: 255 })
     miTest3;
 
+    @Column({ type: 'varchar', length: 255, unique: true })
+    email: string;
+
+    @Column({ type: 'varchar', length: 255 })
+    password: string;
+
     @ManyToMany(() => Role, (role) => role.users)
     @Type(() => number)
     @IsInt({each: true})
     @JoinTable({
         name: 'user_roles',
         joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-        inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'role_id', referencedColumnName: 'idroles' },
     })
     roles: Role[];
 }
