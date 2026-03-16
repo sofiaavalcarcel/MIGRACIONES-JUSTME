@@ -9,13 +9,10 @@ import { User } from '../../users/entities/user.entity';
 @Entity()
 export class Role {
   @PrimaryGeneratedColumn()
-  id: number;
+  idroles: number;
 
   @Column({ type: 'varchar', length: 100, unique: true })
-  name: string;
-
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  description: string;
+  nombre: string;
 
   @ManyToMany(() => User, (user) => user.roles)
   users: User[];

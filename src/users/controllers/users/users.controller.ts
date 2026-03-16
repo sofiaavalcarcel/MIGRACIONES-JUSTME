@@ -1,7 +1,12 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto } from '../../dtos/user.dto';
 import { UsersService } from '../../services/users/users.service';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 
+@ApiTags('users')
+@ApiBearerAuth('JWT-auth')
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
 
@@ -13,6 +18,7 @@ export class UsersController {
         return this.usersService.findAll();
     }
 
+    
     @Get(':userId')
     getOne(@Param('userId', ParseIntPipe) userId: number){
         return this.usersService.findOne(userId);
